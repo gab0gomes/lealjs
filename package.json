@@ -16,7 +16,7 @@
     "JAVASCRIPT",
     "JQUERY"
   ],
-  "author": "Gabriel Rafael Gomes",
+  "author": "Gabriel Rafael Gomes, Denisson Leal",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Sysvale/lealjs/issues"
@@ -25,10 +25,12 @@
   "devDependencies": {
     "@babel/core": "^7.13.1",
     "@babel/preset-env": "^7.13.5",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "webpack": "^5.24.2",
     "webpack-cli": "^4.5.0"
   },
   "dependencies": {
-    "jquery": "^3.5.1"
+    "jquery": "^3.5.1",
+    "path": "^0.12.7"
   }
 }
