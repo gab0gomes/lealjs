@@ -1,66 +1,48 @@
 import argument from './argument';
-import controller from './controller';
-import runMiddlewares from './middlewares';
+import controllerRegister, { controllerCheck } from './controllerRegister';
 
-window.current_page = '';
-window.initialPage = '/';
+$.leal.current_page = '';
 
-export default function redirect(route, options) {
-	let internalOptions = null;
+export default async function redirect(route, options = {}) {
+  let internalOptions = null;
+  let internalRoute = null;
+  const hash = argument(0);
 
-	if (typeof options !== 'object') {
-		internalOptions = {};
-	} else {
-		internalOptions = { ...options };
-	}
+  $('.all-views').hide();
 
-	const hash = window.location.hash.replace('#', '') || '';
+  if (typeof options === 'object') {
+    internalOptions = { ...options };
+  }
 
-	let internalRoute = route || '';
+  if (route && !route.target) { // não é um evento
+    internalRoute = route;
+  }
 
-	if (typeof internalRoute === 'object') {
-		internalRoute = internalRoute.join('/');
-	}
+  if (!hash || route === '') {
+    internalRoute = $.leal.fallbackRoute;
+    if (typeof $.leal.fallbackRoute === 'function') {
+      internalRoute = internalRoute();
+    }
+  }
 
-	internalRoute = internalRoute.replace('#', '');
+  if (!internalRoute) {
+    internalRoute = hash;
+  }
 
-	if (internalRoute === hash) {
-		routes();
-	} else if (internalOptions.replace) {
-		window.location.replace(`#${internalRoute}`);
-	} else {
-		window.location.hash = internalRoute;
-	}
+  if (Array.isArray(internalRoute)) {
+    internalRoute = internalRoute.join('/');
+  }
+
+  internalRoute = internalRoute.replace('#', '');
+  $.leal.current_page = internalRoute;
+
+  if (typeof controllerRegister(hash) === 'undefined') {
+    await controllerCheck(internalRoute);
+  } else if (internalRoute === hash) {
+    controllerRegister(internalRoute).show();
+  } else if (internalOptions.replace) {
+    window.location.replace(`#${internalRoute}`);
+  } else {
+    window.location.hash = internalRoute;
+  }
 }
-
-export const routes = async () => {
-	const hash = argument(0);
-
-	if (!hash.length) {
-		const initialPage = getInitialPage();
-		redirect(initialPage);
-		return false;
-	}
-
-	$('.all-views').hide();
-
-	await runMiddlewares()
-		.then((results) => {
-			if (typeof $.ctrl[hash] === 'undefined') {
-				$.controller(hash);
-			} else {
-				controller(hash).show();
-			}
-
-			window.current_page = hash;
-		}).catch((e) => console.log(e));
-	return false;
-};
-
-export const setInitialPage = (initialPage) => {
-	window.initialPage = initialPage;
-};
-
-export const getInitialPage = () => {
-	return window.initialPage;
-};
