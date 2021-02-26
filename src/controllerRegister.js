@@ -1,5 +1,7 @@
 import argument from './argument';
-import Controller from '../leal2.0/Controller';
+import Controller from './Controller';
+
+const path = require('path');
 
 $.leal.ctrl = {};
 
@@ -49,7 +51,10 @@ export const controllerCheck = async function controllerCheck(name) {
   const internalName = name.replace(/#/g, '');
 
   if (!$.leal.ctrl[internalName]) {
-    await import(`@/js/controllers/${internalName.replace(/\./g, '/')}.js`)
+    const controllerPath = `${path.dirname(require.main.filename)}
+      /${$.leal.controllersPath}
+      /${internalName.replace(/\./g, '/')}.js`;
+    await import(`${controllerPath}`)
       .then((module) => {
         controllerRegister(internalName, module.default);
       })
