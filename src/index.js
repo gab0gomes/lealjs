@@ -16,7 +16,7 @@ $.leal.view = (name, done, local) => {
       $(path).append(data);
     },
     error: (e) => {
-      console.error(name, '[$.view] caminho inválido.', e);
+      console.error(name, '[$.leal.view] caminho inválido.', e);
     },
   }).done(done);
 };
