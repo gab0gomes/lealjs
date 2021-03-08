@@ -1,7 +1,7 @@
 import argument from './argument';
 import controllerRegister, { controllerCheck } from './controllerRegister';
 
-$.leal.current_page = '';
+$.leal.currentPage = '';
 
 export default async function redirect(route, options = {}) {
   let internalOptions = null;
@@ -34,7 +34,7 @@ export default async function redirect(route, options = {}) {
   }
 
   internalRoute = internalRoute.replace('#', '');
-  $.leal.current_page = internalRoute;
+  $.leal.currentPage = internalRoute;
 
   if (typeof controllerRegister(hash) === 'undefined') {
     await controllerCheck(internalRoute);
