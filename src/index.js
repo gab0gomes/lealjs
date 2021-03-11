@@ -7,6 +7,7 @@ export { default as controllerRegister, controllerCheck } from './controllerRegi
 
 window.$.leal = {
     ctrl: {},
+    currentPage: '',
 };
 
 $.leal.view = (name, done, local) => {

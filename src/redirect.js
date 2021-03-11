@@ -1,8 +1,6 @@
 import argument from './argument';
 import controllerRegister, { controllerCheck } from './controllerRegister';
 
-$.leal.currentPage = '';
-
 export default async function redirect(route, options = {}) {
   let internalOptions = null;
   let internalRoute = null;
