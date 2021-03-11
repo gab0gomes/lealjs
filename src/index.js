@@ -6,8 +6,8 @@ export { default as Controller } from './Controller';
 export { default as controllerRegister, controllerCheck } from './controllerRegister';
 
 window.$.leal = {
-    ctrl: {},
-    currentPage: '',
+  ctrl: {},
+  currentPage: '',
 };
 
 $.leal.view = (name, done, local) => {
@@ -40,7 +40,7 @@ const clearPath = (path) => {
   return internalPath;
 }
 
-export default function initRoutes(controllersPath, fallbackRoute) {
+const initRoutes = (controllersPath, fallbackRoute) => {
   if (!controllersPath) {
     throw new Error('[initRoutes] => Informe o caminho da pasta de controllers.');
   }
@@ -51,3 +51,5 @@ export default function initRoutes(controllersPath, fallbackRoute) {
   $(window).on('hashchange', redirect);
   redirect();
 }
+
+export { initRoutes as default }
