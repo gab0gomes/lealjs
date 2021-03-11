@@ -5,7 +5,10 @@ export { default as argument } from './argument';
 export { default as Controller } from './Controller';
 export { default as controllerRegister, controllerCheck } from './controllerRegister';
 
-$.leal = {};
+window.$.leal = {
+    ctrl: {},
+};
+
 $.leal.view = (name, done, local) => {
   const cleanName = name.replace(/#/g, '').replace(/\./g, '/');
   const path = typeof local === 'undefined' ? '.app' : local;

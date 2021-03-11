@@ -3,8 +3,6 @@ import Controller from './Controller';
 
 const path = require('path');
 
-$.leal.ctrl = {};
-
 export default function controllerRegister(id, Obj) {
   if (typeof id === 'undefined') {
     return $.leal.ctrl[argument(0)];
