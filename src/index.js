@@ -40,7 +40,7 @@ const clearPath = (path) => {
   return internalPath;
 }
 
-const initRoutes = (controllersPath, fallbackRoute) => {
+export const initRoutes = (controllersPath, fallbackRoute) => {
   if (!controllersPath) {
     throw new Error('[initRoutes] => Informe o caminho da pasta de controllers.');
   }
@@ -51,5 +51,3 @@ const initRoutes = (controllersPath, fallbackRoute) => {
   $(window).on('hashchange', redirect);
   redirect();
 }
-
-export { initRoutes as default }
