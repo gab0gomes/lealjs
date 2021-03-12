@@ -2,7 +2,7 @@ import redirect from './redirect';
 
 const clearPath = (path) => {
   const reg = /\w/
-  const internalPath = path;
+  let internalPath = path;
 
   if (!reg.test(internalPath[1])) {
     internalPath = internalPath.slice(1)
