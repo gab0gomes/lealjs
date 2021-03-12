@@ -6,8 +6,10 @@ module.exports = {
   output: {
     filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
-    library: 'lealjs',
-    libraryTarget: 'commonjs2',
+    library: 'index',
+    libraryTarget: 'umd',
+    umdNamedDefine: true,
+    globalObject: `(typeof self !== 'undefined' ? self : this)`
   },
   target: ['web', 'es5'],
   module: {
