@@ -51,7 +51,7 @@ export const controllerCheck = async function controllerCheck(name) {
   const internalName = name.replace(/#/g, '');
 
   if (!$.leal.ctrl[internalName]) {
-    const controllerPath = `${appRoot}/${$.leal.controllersPath}/${internalName.replace(/\./g, '/')}.js`;
+    const controllerPath = `${$.leal.controllersPath}/${internalName.replace(/\./g, '/')}.js`;
 
     console.log(appRoot, controllerPath)
     await import(`${controllerPath}`)
