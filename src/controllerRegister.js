@@ -58,7 +58,8 @@ export const controllerCheck = async function controllerCheck(name) {
       .then((module) => {
         controllerRegister(internalName, module.default);
       })
-      .catch(() => {
+      .catch((e) => {
+        console.error(e)
         throw new Error(`[controllerRegister] => ${name} caminho inválido.`);
       });
   }
