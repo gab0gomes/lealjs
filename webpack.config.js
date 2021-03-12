@@ -7,7 +7,7 @@ module.exports = {
     filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
   },
-  target: ['web', 'es5'],
+  target: ['es5'],
   module: {
     rules: [
       {

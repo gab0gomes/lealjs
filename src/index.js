@@ -21,8 +21,8 @@ $.leal.view = (name, done, local) => {
   }).done(done);
 };
 
+export { default as default } from './initRoutes';
 export { default as redirect } from './redirect';
 export { default as argument } from './argument';
 export { default as Controller } from './Controller';
-export { default as initRoutes } from './initRoutes';
 export { default as controllerRegister, controllerCheck } from './controllerRegister';
