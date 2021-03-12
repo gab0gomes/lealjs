@@ -3,8 +3,6 @@ import appRoot from 'app-root-path';
 import argument from './argument';
 import Controller from './Controller';
 
-const path = require('path');
-
 export default function controllerRegister(id, Obj) {
   if (typeof id === 'undefined') {
     return $.leal.ctrl[argument(0)];
@@ -53,7 +51,6 @@ export const controllerCheck = async function controllerCheck(name) {
   if (!$.leal.ctrl[internalName]) {
     const controllerPath = `${$.leal.controllersPath}/${internalName.replace(/\./g, '/')}.js`;
 
-    console.log(appRoot, controllerPath)
     await import(`${controllerPath}`)
       .then((module) => {
         controllerRegister(internalName, module.default);
