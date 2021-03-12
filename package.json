@@ -33,6 +33,7 @@
     "webpack-cli": "^4.5.0"
   },
   "dependencies": {
+    "app-root-path": "^3.0.0",
     "jquery": "^3.5.1",
     "path": "^0.12.7"
   }
