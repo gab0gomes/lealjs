@@ -48,7 +48,7 @@ export default class Controller {
       throw new Error('Informe a view.');
     }
 
-    let $view;
+    let $view = this.view;
     if (typeof this.view === 'function') {
       this.view().then(module => {
         $view = module;
