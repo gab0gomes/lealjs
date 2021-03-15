@@ -49,8 +49,9 @@ export default class Controller {
     }
 
     let $view = await this.view();
+    console.log($view)
     $view = $.parseHTML($view);
-
+    console.log('$view', $view, $view.attr('id'))
     const element = typeof this.appendTo === 'undefined' ? '.app' : this.appendTo;
 
     $(element).append($view);
