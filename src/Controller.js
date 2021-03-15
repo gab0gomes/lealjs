@@ -48,7 +48,15 @@ export default class Controller {
       throw new Error('Informe a view.');
     }
 
-    let $view = await this.view();
+    let $view;
+    if (typeof this.view === 'function') {
+      $view = await this.view();
+    }
+
+    if (typeof $view === 'object') {
+      $view = $view.default;
+    }
+
     console.log($view)
     $view = $.parseHTML($view);
     console.log('$view', $view, $view.attr('id'))
