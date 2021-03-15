@@ -30,8 +30,8 @@ export default class Controller {
       await this.loadView();
       this.showCallback();
       $(this.view).show();
-    } catch {
-      throw new Error('Controller: showCallback não é uma função.');
+    } catch (e) {
+      throw new Error(`Controller: ${e}`);
     }
   }
 
