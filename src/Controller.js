@@ -49,10 +49,9 @@ export default class Controller {
     }
 
     let $view = this.view;
+
     if (typeof this.view === 'function') {
-      this.view().then(module => {
-        $view = module;
-      });
+      $view = await this.view();
     }
     console.log($view)
 
