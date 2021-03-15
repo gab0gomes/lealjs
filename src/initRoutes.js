@@ -1,25 +1,14 @@
 import redirect from './redirect';
 
-const clearPath = (path) => {
-  const reg = /\w/
-  let internalPath = path;
-
-  if (!reg.test(internalPath[1])) {
-    internalPath = internalPath.slice(1)
+export default function initRoutes(routes, fallbackRoute) {
+  if (!routes || Object.keys(routes).length === 0) {
+    throw new Error('[initRoutes] => Informe as rotas e os routes.');
   }
-  if (!reg.test(internalPath[internalPath.length - 1])) {
-    internalPath = internalPath.slice(-1)
+  if (typeof routes !== 'object') {
+    throw new Error('[initRoutes] => Os controller e rotas precisam estar no formato "rota: controller"');
   }
 
-  return internalPath;
-}
-
-export default function initRoutes(controllersPath, fallbackRoute) {
-  if (!controllersPath) {
-    throw new Error('[initRoutes] => Informe o caminho da pasta de controllers.');
-  }
-
-  $.leal.controllersPath = clearPath(controllersPath);
+  $.leal.routes = {...routes};
   $.leal.fallbackRoute = fallbackRoute;
 
   $(window).on('hashchange', redirect);

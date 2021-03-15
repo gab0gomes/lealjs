@@ -1,8 +1,6 @@
 import argument from './argument';
 import Controller from './Controller';
 
-const path = require('path');
-
 export default function controllerRegister(id, Obj) {
   if (typeof id === 'undefined') {
     return $.leal.ctrl[argument(0)];
@@ -49,9 +47,7 @@ export const controllerCheck = async function controllerCheck(name) {
   const internalName = name.replace(/#/g, '');
 
   if (!$.leal.ctrl[internalName]) {
-    const controllerPath = path.resolve($.leal.controllersPath, `${internalName.replace(/\./g, '/')}.js`);
-
-    await import(`${controllerPath}`)
+    await $.leal.routes[internalName]()
       .then((module) => {
         controllerRegister(internalName, module.default);
       })

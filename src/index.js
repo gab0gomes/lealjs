@@ -3,6 +3,7 @@ import 'jquery';
 window.$.leal = {
   ctrl: {},
   currentPage: '',
+  routes: {},
 };
 
 $.leal.view = (name, done, local) => {
