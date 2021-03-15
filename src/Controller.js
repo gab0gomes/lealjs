@@ -1,7 +1,6 @@
 export default class Controller {
   constructor(
     view,
-    path,
     initializeCallback = function () {},
     loadViewCallback = function () {},
     showCallback,
@@ -12,7 +11,6 @@ export default class Controller {
     },
   ) {
     this.view = view;
-    this.path = path;
     this.appendTo = appendTo;
     this.initializeCallback = initializeCallback.bind(this);
     this.loadViewCallback = loadViewCallback.bind(this);
@@ -45,36 +43,22 @@ export default class Controller {
     }
   }
 
-  async loadView(path = this.path, loadViewCallback = this.loadViewCallback) {
-    let cleanName;
-
-    if ($(this.view).length) { // a view já foi carregada
-      return false;
+  async loadView(loadViewCallback = this.loadViewCallback) {
+    if (!this.view) {
+      throw new Error('Informe a view.');
     }
 
-    try {
-      cleanName = path.replace(/#/g, '').replace(/\./g, '/');
-    } catch {
-      throw new Error('Controller: path é obrigatório.');
-    }
+    let $view = await this.view();
+    $view = $.parseHTML($view);
 
     const element = typeof this.appendTo === 'undefined' ? '.app' : this.appendTo;
 
-    return $.ajax({
-      url: `views/${cleanName}.html`,
-      type: 'GET',
-      dataType: 'html',
-      success: (data) => {
-        $(element).append(data);
-        try {
-          loadViewCallback.call(this);
-        } catch {
-          throw new Error('View: loadView exige um callback.');
-        }
-      },
-      error: (e) => {
-        throw new Error(`${path} - View: caminho inválido. ${e}`);
-      },
-    });
+    $(element).append(data);
+
+    try {
+      loadViewCallback.call(this);
+    } catch {
+      throw new Error('View: loadView exige um callback.');
+    }
   }
 }
