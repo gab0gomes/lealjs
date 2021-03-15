@@ -53,7 +53,7 @@ export default class Controller {
 
     const element = typeof this.appendTo === 'undefined' ? '.app' : this.appendTo;
 
-    $(element).append(data);
+    $(element).append($view);
 
     try {
       loadViewCallback.call(this);
