@@ -50,8 +50,11 @@ export default class Controller {
 
     let $view;
     if (typeof this.view === 'function') {
-      $view = await this.view();
+      this.view().then(module => {
+        $view = module;
+      });
     }
+    console.log($view)
 
     if (typeof $view === 'object') {
       $view = $view.default;
