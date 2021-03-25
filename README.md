@@ -27,7 +27,7 @@ The entrypoint of the framework is a map between routes and controllers, like th
     'cart': cartControllers
   }
 ```
-If the route has parameters like `products/find/<id>`, you don't need to put they in this map. You will be able to get the params inside the controller using the [argument](### argument) helper function.
+If the route has parameters like `products/find/<id>`, you don't need to put they in this map. You will be able to get the params inside the controller using the [argument](###argument) helper function.
 
 The routes will be transformed following this pattern: `products.find -> products/find`.
 
@@ -50,7 +50,7 @@ The routes map needs to be passed as parameter to the `initRoutes` function.
     initRoutes(routes, fallbackRoute);
 ```
 
-The `fallbackRoute` of `initRoutes` is a route (string or a function that returns a string) to be used in [redirect](### redirect) when no route is passed as param or there is no current route.
+The `fallbackRoute` of `initRoutes` is a route (string or a function that returns a string) to be used in [redirect](###redirect) when no route is passed as param or there is no current route.
 
 This can be used as the first route for the user. For example:
 
@@ -74,7 +74,7 @@ This can be used as the first route for the user. For example:
 ___
 ### redirect
 
-The `redirect(route, options)` function is a core function of the framework but can be used inside controllers to navigate between pages. It's responsible to handle the `hashchange` event and check if the controller has ever been instantiated. If it's true, call the controller's [controllerRegister(route).show()](### controllerRegister) function. If not, register the controller with the [controllerCheck(route)](### controllerCheck).
+The `redirect(route, options)` function is a core function of the framework but can be used inside controllers to navigate between pages. It's responsible to handle the `hashchange` event and check if the controller has ever been instantiated. If it's true, call the controller's [controllerRegister(route).show()](###controllerRegister) function. If not, register the controller with the [controllerCheck(route)](###controllerCheck).
 
 The second param is an object that could contain the `replace: true` option. This will change the `window.location` method inside `redirect`. If true, `window.location.replace(`#${route}`);` will be called. Else, `window.location.hash = route;` will do the job.
 
@@ -97,7 +97,7 @@ ___
 
 ### controllerCheck
 
-This function receives a route and verify if the controllers was instatiated. If not, instatiate a new instance of the controller and call the [controllerRegister(route, instance)](### controllerRegister).
+This function receives a route and verify if the controllers was instatiated. If not, instatiate a new instance of the controller and call the [controllerRegister(route, instance)](###controllerRegister).
 
 For performance reasons, the controller is intatiated only when the user goes to their route for the first time. The subsequents times, the framework uses the previous instance.
 
