@@ -1,59 +1,59 @@
 import argument from './argument';
 import Controller from './Controller';
 
-export default function controllerRegister(id, Obj) {
-  if (typeof id === 'undefined') {
+export default function controllerRegister(route, controller) {
+  if (typeof route === 'undefined') {
     return $.leal.ctrl[argument(0)];
   }
 
-  if (typeof Obj === 'undefined') {
-    return $.leal.ctrl[id];
+  if (typeof controller === 'undefined') {
+    return $.leal.ctrl[route];
   }
 
-  if (Obj instanceof Controller) {
-    $.leal.ctrl[id] = Obj;
-    return $.leal.ctrl[id];
+  if (controller instanceof Controller) {
+    $.leal.ctrl[route] = controller;
+    return $.leal.ctrl[route];
   }
 
-  if (typeof Obj === 'function') {
-    const c = new Obj();
+  if (typeof controller === 'function') {
+    const ctrl = new controller();
 
-    Object.keys(c).forEach((i) => {
-      if (typeof c[i] === 'function') {
-        c[i] = c[i].bind(c);
+    Object.keys(ctrl).forEach((property) => {
+      if (typeof ctrl[property] === 'function') {
+        ctrl[property] = ctrl[property].bind(ctrl);
       }
     });
-    $.leal.ctrl[id] = c;
+    $.leal.ctrl[route] = ctrl;
   } else {
-    $.leal.ctrl[id] = Obj;
+    $.leal.ctrl[route] = controller;
   }
 
-  if (!($.leal.ctrl[id] instanceof Controller)) {
-    console.warn(`[deprecated]: Considere migrar o controller "${id}" para uma instância da classe Controller`);
-    if (typeof $.leal.ctrl[id].initialize === 'function') {
-      $($.leal.ctrl[id].initialize);
-      return $.leal.ctrl[id];
+  if (!($.leal.ctrl[route] instanceof Controller)) {
+    console.warn(`[deprecated]: Considere migrar o controller "${route}" para uma instância da classe Controller`);
+    if (typeof $.leal.ctrl[route].initialize === 'function') {
+      $($.leal.ctrl[route].initialize);
+      return $.leal.ctrl[route];
     }
   }
 
-  if (!$.leal.ctrl[id]) {
+  if (!$.leal.ctrl[route]) {
     throw new Error('[controllerRegister] => Controller não encontrado');
   }
 
-  return $.leal.ctrl[id];
+  return $.leal.ctrl[route];
 }
 
-export const controllerCheck = async function controllerCheck(name) {
-  const internalName = name.replace(/#/g, '');
+export const controllerCheck = async function controllerCheck(route) {
+  const internalName = route.replace(/#/g, '');
 
   if (!$.leal.ctrl[internalName]) {
-    await $.leal.routes[internalName]()
+    await $.leal.routes[internalName]() // executa a função que importa dinâmicamente o controller
       .then((module) => {
         controllerRegister(internalName, module.default);
       })
       .catch((e) => {
         console.error(e)
-        throw new Error(`[controllerRegister] => ${name} caminho inválido.`);
+        throw new Error(`[controllerRegister] => ${route} caminho inválido.`);
       });
   }
 };
