@@ -1,12 +1,12 @@
 export default class Controller {
   constructor(
     view,
+    showCallback,
     initializeCallback = function () {},
     loadViewCallback = function () {},
-    showCallback,
     {
       extraCallbacks = {},
-      extraProps,
+      extraProps = {},
       appendTo,
     },
   ) {
