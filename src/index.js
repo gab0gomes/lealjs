@@ -4,22 +4,22 @@ window.$.leal = {
   ctrl: {},
   currentPage: '',
   routes: {},
+  fallbackRoute: '',
 };
 
-$.leal.view = (name, done, local) => {
+$.leal.view = (name, doneCallback, selector = '.app') => {
   const cleanName = name.replace(/#/g, '').replace(/\./g, '/');
-  const path = typeof local === 'undefined' ? '.app' : local;
   $.ajax({
     url: `views/${cleanName}.html`,
     type: 'GET',
     dataType: 'html',
     success: (data) => {
-      $(path).append(data);
+      $(selector).append(data);
     },
     error: (e) => {
       console.error(name, '[$.leal.view] caminho inválido.', e);
     },
-  }).done(done);
+  }).done(doneCallback);
 };
 
 export { default as default } from './initRoutes';
