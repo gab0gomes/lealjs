@@ -31,7 +31,7 @@ If the route has parameters like `products/find/<id>`, you don't need to put the
 
 The routes will be transformed following this pattern: `products.find -> products/find`.
 
-If you are using `>=2.0` version, you must pass the view as a html string or as a function that returns a html string to [Controller](#the-constroller-class) constructor. Else, you could still using the `$.leal.view()` helper function with a controller funcion. This is a deprecated method.
+If you are using `>=2.0` version, you must pass the view as a html string or as a function that returns a html string to [Controller](#the-controller-class) constructor. Else, you could still using the `$.leal.view()` helper function with a controller funcion. This is a deprecated method.
 
 If you are using webpack, look the `html-loader`. This will allow you to import the views files like this:
 
@@ -83,13 +83,13 @@ ___
 
 This is the heart of LealJS. This function is a core function but can be used inside the controllers to get an external controller method or property.
 
-The `controllerRegister` receives two params, the `route` of the controller wich is the route (eg.: `products.find`) and a controller that could be a LealJS 1.0 controller function or a [Controller](#the-constroller-class) class instance.
+The `controllerRegister` receives two params, the `route` of the controller wich is the route (eg.: `products.find`) and a controller that could be a LealJS 1.0 controller function or a [Controller](#the-controller-class) class instance.
 
 This function always return the registered controller.
 
 * If no `route` is provided, the return is the `current controller`;
 * If no controller is provided, the return is the `route controller`;
-* If the controller is an instance of [Controller](#the-constroller-class), the controller will be registered and returned;
+* If the controller is an instance of [Controller](#the-controller-class), the controller will be registered and returned;
 * If the controller is a function, their methods will be binded to himself and the controller will be registered, his `initialize` method will be called and the controller will be returned;
 * If there no controller with thad `route` an error is thrown.
 
