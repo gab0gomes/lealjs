@@ -43,11 +43,11 @@ Make sure that you have `babel-plugin-syntax-dynamic-import` in your `.babelrc` 
 The routes map needs to be passed as parameter to the `initRoutes` function.
 
 ```javascript
-    // app.js
-    // ...
-    import initRoutes from 'lealjs'
-    // ...
-    initRoutes(routes, fallbackRoute);
+  // app.js
+  // ...
+  import initRoutes from 'lealjs'
+  // ...
+  initRoutes(routes, fallbackRoute);
 ```
 
 The `fallbackRoute` of `initRoutes` is a route (string or a function that returns a string) to be used in [redirect](#redirect) when no route is passed as param or there is no current route.
@@ -55,20 +55,20 @@ The `fallbackRoute` of `initRoutes` is a route (string or a function that return
 This can be used as the first route for the user. For example:
 
 ```javascript
-    // app.js
-    // ...
-    import initRoutes from 'lealjs'
+  // app.js
+  // ...
+  import initRoutes from 'lealjs'
 
-    const user = {
-        getInitialPage() {
-            if (user.type === 'A') {
-                return 'page.a'
-            }
-            return 'page.x'
-        }
+  const user = {
+    getInitialPage() {
+      if (user.type === 'A') {
+        return 'page.a'
+      }
+      return 'page.x'
     }
-    // ...
-    initRoutes(routes, user.getInitialPage.bind(user));
+  }
+  // ...
+  initRoutes(routes, user.getInitialPage.bind(user));
 ```
 
 ___
