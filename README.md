@@ -27,11 +27,11 @@ The entrypoint of the framework is a map between routes and controllers, like th
     'cart': cartControllers
   }
 ```
-If the route has parameters like `products/find/<id>`, you don't need to put they in this map. You will be able to get the params inside the controller using the [argument](### argument) helper function.
+If the route has parameters like `products/find/<id>`, you don't need to put they in this map. You will be able to get the params inside the controller using the [argument](#argument) helper function.
 
 The routes will be transformed following this pattern: `products.find -> products/find`.
 
-If you are using `>=2.0` version, you must pass the view as a html string or as a function that returns a html string to `Controller` constructor. Else, you could still using the `$.leal.view()` helper function with a controller funcion. This is a deprecated method.
+If you are using `>=2.0` version, you must pass the view as a html string or as a function that returns a html string to [Controller](#the-controller-class) constructor. Else, you could still using the `$.leal.view()` helper function with a controller funcion. This is a deprecated method.
 
 If you are using webpack, look the `html-loader`. This will allow you to import the views files like this:
 
@@ -50,7 +50,7 @@ The routes map needs to be passed as parameter to the `initRoutes` function.
     initRoutes(routes, fallbackRoute);
 ```
 
-The `fallbackRoute` of `initRoutes` is a route (string or a function that returns a string) to be used in [redirect](### redirect) when no route is passed as param or there is no current route.
+The `fallbackRoute` of `initRoutes` is a route (string or a function that returns a string) to be used in [redirect](#redirect) when no route is passed as param or there is no current route.
 
 This can be used as the first route for the user. For example:
 
@@ -74,7 +74,7 @@ This can be used as the first route for the user. For example:
 ___
 ### redirect
 
-The `redirect(route, options)` function is a core function of the framework but can be used inside controllers to navigate between pages. It's responsible to handle the `hashchange` event and check if the controller has ever been instantiated. If it's true, call the controller's [controllerRegister(route).show()](### controllerRegister) function. If not, register the controller with the [controllerCheck(route)](### controllerCheck).
+The `redirect(route, options)` function is a core function of the framework but can be used inside controllers to navigate between pages. It's responsible to handle the `hashchange` event and check if the controller has ever been instantiated. If it's true, call the controller's [controllerRegister(route).show()](#controllerRegister) function. If not, register the controller with the [controllerCheck(route)](#controllerCheck).
 
 The second param is an object that could contain the `replace: true` option. This will change the `window.location` method inside `redirect`. If true, `window.location.replace(`#${route}`);` will be called. Else, `window.location.hash = route;` will do the job.
 
@@ -83,13 +83,13 @@ ___
 
 This is the heart of LealJS. This function is a core function but can be used inside the controllers to get an external controller method or property.
 
-The `controllerRegister` receives two params, the `route` of the controller wich is the route (eg.: `products.find`) and a controller that could be a LealJS 1.0 controller function or a `Controller` class instance.
+The `controllerRegister` receives two params, the `route` of the controller wich is the route (eg.: `products.find`) and a controller that could be a LealJS 1.0 controller function or a [Controller](#the-controller-class) class instance.
 
 This function always return the registered controller.
 
 * If no `route` is provided, the return is the `current controller`;
 * If no controller is provided, the return is the `route controller`;
-* If the controller is an instance of `Controller`, the controller will be registered and returned;
+* If the controller is an instance of [Controller](#the-controller-class), the controller will be registered and returned;
 * If the controller is a function, their methods will be binded to himself and the controller will be registered, his `initialize` method will be called and the controller will be returned;
 * If there no controller with thad `route` an error is thrown.
 
@@ -97,7 +97,7 @@ ___
 
 ### controllerCheck
 
-This function receives a route and verify if the controllers was instatiated. If not, instatiate a new instance of the controller and call the [controllerRegister(route, instance)](### controllerRegister).
+This function receives a route and verify if the controllers was instatiated. If not, instatiate a new instance of the controller and call the [controllerRegister(route, instance)](#controllerRegister).
 
 For performance reasons, the controller is intatiated only when the user goes to their route for the first time. The subsequents times, the framework uses the previous instance.
 
