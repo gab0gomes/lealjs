@@ -13,7 +13,7 @@ When the `hashchange` event is triggered, all views are hidded and only the view
 
 This is the diagram of the framework:
 
-![LealJS 2.0](./docs/images/leal-2.0.png)
+![LealJS 2.0 Diagram](./docs/images/leal-2.0.png)
 
 ___
 
