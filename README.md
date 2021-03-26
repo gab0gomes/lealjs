@@ -1,5 +1,7 @@
 # LEALJS
 
+<img src="./docs/images/logo.jpg" alt="LealJS Logo" width="350"/>
+
 ## Description
 The LealJS is a simple Single Page App (SPA) framework based on jQuery.
 
